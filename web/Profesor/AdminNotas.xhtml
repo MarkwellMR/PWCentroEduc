@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./fAdmin.xhtml">
+
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{controllerNotas.cargarMaestro()}"/>
+                <p id="titulo">Usuario: Administrador</p>
+                <p:accordionPanel id="acordion" class="mt-1">
+                    <p:tab title="Administradores">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <h:form id="selectForm">
+                                <div class="ui-g m">
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <p:selectOneMenu id="selMenProf" value="#{controllerNotas.codMae}">
+                                            <f:selectItem itemLabel="Maestro"/>
+                                            <f:selectItems value="#{controllerNotas.listaMaestros}" var="lstMaes" itemLabel="#{lstMaes.nombre} #{lstMaes.apellido}" itemValue="#{lstMaes.codigo}"/>
+                                            <p:ajax listener="#{controllerNotas.ListasGrado()}" process=":acordion:selectForm:selMenProf" update=":acordion:selectForm:selMenGrad"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-2 ui-lg-2">
+                                        <p:selectOneMenu id="selMenGrad" value="#{controllerNotas.codGrad}" >
+                                            <f:selectItem itemLabel="Grado"/>
+                                            <f:selectItems value="#{controllerNotas.listaGrado}" var="lstGrd" itemLabel="#{lstGrd.descripcion}" itemValue="#{lstGrd.cod_grado}"/> 
+                                            <p:ajax listener="#{controllerNotas.cargarSeccion()}" process=":acordion:selectForm:selMenGrad" update=":acordion:selectForm:selMenSec"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-2 ui-lg-2">
+                                        <p:selectOneMenu id="selMenSec" value="#{controllerNotas.codSec}">
+                                            <f:selectItem itemLabel="Seccion"/>
+                                            <f:selectItems value="#{controllerNotas.lstSec}" var="lstSec" itemLabel="#{lstSec.descripcion}" itemValue="#{lstSec.codigo}"/>
+                                            <p:ajax listener="#{controllerNotas.cargarCurso()}" process=":acordion:selectForm:selMenSec" update=":acordion:selectForm:selMenCurs"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-2 ui-lg-2">
+                                        <p:selectOneMenu id="selMenCurs" value="#{controllerNotas.codCurso}">
+                                            <f:selectItem itemLabel="Curso"/>
+                                            <f:selectItems value="#{controllerNotas.lstCurso}" var="lstCurs" itemLabel="#{lstCurs.nombre}" itemValue="#{lstCurs.cod}"/>
+                                            <p:ajax listener="#{controllerNotas.cargarAlumno()}" update=":acordion:tblAlumnos:dtTblAlum"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12 mt-1">
+                            <h:form id="tblAlumnos">
+                                <div class="ui-g m-1">
+                                    <p:dataTable var="lstAlum" value="#{controllerNotas.lstAl}" id="dtTblAlum" >
+                                        <p:column headerText="Codigo Alumno">
+                                            <h:outputText value="#{lstAlum.codAlumno}"/>
+                                        </p:column>
+                                        <p:column headerText="Nombre">
+                                            <h:outputText value="#{lstAlum.nombre}"/>
+                                        </p:column>
+                                        <p:column headerText="Unidad">
+                                            <h:inputText value="#{controllerNotas.codUnidad}"/>
+                                        </p:column>
+                                        <p:column headerText="Nota">
+                                            <h:inputText value="#{controllerNotas.nota.nota}"/>
+                                            <p:commandButton value="Agregar Nota"  actionListener="#{controllerNotas.mostrarCodAlum(lstAlum.codAlumno,controllerNotas.nota.nota ,controllerNotas.codUnidad)}" />
+                                        </p:column>
+                                    </p:dataTable> 
+                                </div>
+                            </h:form>
+                        </div>
+                    </p:tab>
+                </p:accordionPanel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

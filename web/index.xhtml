@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:accordionPanel id="acordion" class="mt-1">
+            <p:tab title="Administradores">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <h:panelGrid columns="1" cellpadding="10">
+                    <div class="ui-g-12 ui-md-12 ui-lg-12">
+                        <h:form id="loginAdmin">
+                            <div class="ui-g m-1">
+                                <div class="ui-g-12 ui-md-3 ui-lg-3" id="etiquetas">
+                                    &nbsp;
+                                </div>
+                                <div class="ui-g-12 ui-md-3 ui-lg-3" id="etiquetas">
+                                    <p:outputLabel for="txtUser" value="Usuario:"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-3 ui-lg-3" id="etiquetas">
+                                    <p:inputText id="txtUser" value="#{controllerAdmin.admin.email}"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-3 ui-lg-3" id="etiquetas">
+                                    &nbsp;
+                                </div>
+                                <div class="ui-g-12 ui-md-3 ui-lg-3" id="etiquetas">
+                                    &nbsp;
+                                </div>
+                                <div class="ui-g-12 ui-md-3 ui-lg-3" id="etiquetas">
+                                    <p:outputLabel for="txtPass" value="Contraseña"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-3 ui-lg-3" id="etiquetas">
+                                    <p:inputText id="txtPass" value="#{controllerAdmin.admin.pass}" required="true" type="password"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-3 ui-lg-3" id="etiquetas">
+                                    &nbsp;
+                                </div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-4" id="etiquetas">
+                                    &nbsp;
+                                </div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-4" id="etiquetas">
+                                    <p:commandButton actionListener="#{controllerAdmin.autenticar()}" value="Iniciar Sesion" icon="ui-icon-key"/>
+                                </div>
+                                <div class="ui-g-12 ui-md-4 ui-lg-4" id="etiquetas">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </h:panelGrid>
+            </p:tab>
+        </p:accordionPanel>
+    </h:body>
+</html>
+

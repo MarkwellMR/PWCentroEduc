@@ -1,0 +1,740 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./fAdmin.xhtml">
+
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{controllerSecre.cargarSecre()}"/>
+                <f:event type="preRenderView" listener="#{controllerAlumno.cargarAlumnos()}"/>
+                <f:event type="preRenderView" listener="#{controllerEnc.cargarDatos()}"/>
+                <f:event type="preRenderView" listener="#{controllerGrado.cargarGrado()}"/>
+                <f:event type="preRenderView" listener="#{controladorSeccion.cargarSeccion()}"/>
+                <p id="titulo">Usuario:Secretaria</p>
+                <p:accordionPanel id="acordion" class="mt-1">
+                    <p:tab title="Secretarias">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <h:form id="frmTabla">
+                                    <div class="ui-g m-1">
+                                        <p:dataTable var="secre" value="#{controllerSecre.listaSecre}" id="tblSecre" scrollable="true" scrollHeight="300">
+                                            <p:column headerText="Codigo">
+                                                <h:outputText value="#{secre.codigo}" />
+                                            </p:column>
+                                            <p:column headerText="Nombre">
+                                                <h:outputText value="#{secre.nombre}" />
+                                            </p:column>
+                                            <p:column headerText="Apellido">
+                                                <h:outputText value="#{secre.apellido}" />
+                                            </p:column>
+                                            <p:column headerText="Direccion">
+                                                <h:outputText value="#{secre.direccion}" />
+                                            </p:column>
+                                            <p:column headerText="Email">
+                                                <h:outputText value="#{secre.email}" />
+                                            </p:column>
+                                            <p:column headerText="Tel casa">
+                                                <h:outputText value="#{secre.telCasa}" />
+                                            </p:column>
+                                            <p:column headerText="Tel movil">
+                                                <h:outputText value="#{secre.telMovil}" />
+                                            </p:column>
+                                            <p:column headerText="Fecha de Nacimiento">
+                                                <h:outputText value="#{secre.fechanac}" />
+                                            </p:column>
+                                            <p:column headerText="Acciones">
+                                                <p:commandLink title="Actualizar" actionListener="#{controllerSecre.buscarSecre(secre)}" oncomplete="PF('dlgUpdate').show();" update=":acordion:update">
+                                                    <img src="../resources/img/Cr.svg" id="img-2"/>
+                                                </p:commandLink> 
+                                                <p:commandLink title="Eliminar" actionListener="#{controllerSecre.buscarSecre(secre)}" oncomplete="PF('dlgDelete').show();" update=":acordion:delete">
+                                                    <img src="../resources/img/DU.svg" id="img-2"/>
+                                                </p:commandLink>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p:commandButton value="Ingresar Nueva Secretaria" oncomplete="PF('dlgCreateS').show();"/>
+                                        </div>
+                                    </div>
+                                </h:form>
+                                <!--Cuadros de Dialogo-->
+                                <p:dialog header="Ingresar Secretaria" id="createS" widgetVar="dlgCreateS" showEffect="explode" hideEffect="none" height="500" width="800">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p id="titulo-1">Ingrese los Datos</p>
+                                        </div>
+                                        <h:form id="frmIngreso">
+                                            <div class="ui-g m">
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtCodigo" value="Codigo:"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtCodigo" value="#{controllerSecre.secre.codigo}" class="w-1"/> 
+                                                </div>
+                                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtNombre" value="Nombre:"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtNombre" value="#{controllerSecre.secre.nombre}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtApellido" value="Apellido:"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtApellido" value="#{controllerSecre.secre.apellido}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtTelcasa" value="Tel Casa: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtTelcasa" value="#{controllerSecre.secre.telCasa}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtTelmovil" value="Tel Movil: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtTelmovil" value="#{controllerSecre.secre.telMovil}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtFechanac" value="Fecha de Nacimiento: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:calendar id="txtFechanac" value="#{controllerSecre.date}" pattern="yyyy/MM/dd" mask="true" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtCui" value="Cui: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtCui" value="#{controllerSecre.secre.cui}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtCodigoA" value="Codigo Administrador: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtCodigoA" value="#{controllerSecre.secre.codAdm}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtDireccion" value="Direccion: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-10 ui-lg-10">
+                                                    <p:inputText id="txtDireccion" value="#{controllerSecre.secre.direccion}" class="w-1"/> 
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtEmail" value="Email: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-10 ui-lg-10">
+                                                    <p:inputText id="txtEmail" value="#{controllerSecre.secre.email}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtPass" value="Pasword: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText type="password" id="txtPass" value="#{controllerSecre.secre.pass}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                                    <p:commandButton actionListener="#{controllerSecre.guardarSecre()}" value="Guardar Datos" update=":acordion:frmTabla:tblSecre :acordion:growl" oncomplete="PF('dlgCreateS').hide();" class="ml-1"/>
+                                                    <p:commandButton value="Cancelar" update=":acordion:frmTabla:tblSecre" oncomplete="PF('dlgCreateS').hide();" class="ml-1"/>
+                                                </div> 
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </p:dialog>
+                                <p:dialog header="Actualizar Datos" id="update" widgetVar="dlgUpdate" showEffect="explode" hideEffect="none" height="400" width="800">
+                                    <h:form>
+                                        <div class="ui-g">
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtCodigoB" value="Codigo:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel id="txtCodigoB" value="#{controllerSecre.secre.codigo}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                &nbsp;
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtNombreB" value="Nombre:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtNombreB" value="#{controllerSecre.secre.nombre}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtApellidoB" value="Apellido:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtApellidoB" value="#{controllerSecre.secre.apellido}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtDireccionB" value="Direccion:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtDireccionB" value="#{controllerSecre.secre.direccion}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtEmailB" value="Email:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtEmailB" value="#{controllerSecre.secre.email}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtTelCasaB" value="Telefono de Casa:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtTelCasaB" value="#{controllerSecre.secre.telCasa}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtTelMovilB" value="Telefono Movil:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtTelMovilB" value="#{controllerSecre.secre.telMovil}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtFechanacB" value="Fecha de Nacimiento:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:calendar id="txtFechanacB" value="#{controllerSecre.date}" pattern="yyyy/MM/dd" mask="true" class="w-1"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtCuiB" value="Cui:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtCuiB" value="#{controllerSecre.secre.cui}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtPasswordB" value="Password:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText type="password" id="txtPasswordB" value="#{controllerSecre.secre.pass}"/>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <p:commandButton actionListener="#{controllerSecre.editarSecre()}" value="Actualizar" update=":acordion:frmTabla:tblSecre :acordion:growl" oncomplete="PF('dlgUpdate').hide();" class="ml-2"/>
+                                                <p:commandButton value="Cancelar" update=":acordion:frmTabla:tblSecre" oncomplete="PF('dlgUpdate').hide();" class="ml-1"/>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </p:dialog>
+                                <p:dialog header="Eliminar Secretaria" id="delete" widgetVar="dlgDelete" showEffect="explode" hideEffect="none" height="250" width="300">
+                                    <h:form>
+                                        <div class="ui-g">
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <h:outputText value="¿Esta seguro que desea Eliminarlo?"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel for="txtCodeE" value="Codigo:"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel id="txtCodeE" value="#{controllerSecre.secre.codigo}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel for="txtNameE" value="Nombre:"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel id="txtNameE" value="#{controllerSecre.secre.nombre}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel for="txtApellidoE" value="Apellido:"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel id="txtApellidoE" value="#{controllerSecre.secre.apellido}"/>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <p:commandButton actionListener="#{controllerSecre.estado()}" value="Eliminar" update=":acordion:frmTabla:tblSecre :acordion:growl" oncomplete="PF('dlgDelete').hide();" class="ml-1"/>
+                                                <p:commandButton value="Cancelar" update=":acordion:frmTabla:tblSecre" oncomplete="PF('dlgDelete').hide();" class="ml-1"/>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </p:dialog>
+                            </div>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Alumnos">
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <h:form id="frmTablaAlumn">
+                                    <div class="ui-g m-1">
+                                        <p:dataTable var="alumn" value="#{controllerAlumno.listaAlumno}" id="tblAlumn" scrollable="true" scrollHeight="300">
+                                            <p:column headerText="Codigo">
+                                                <h:outputText value="#{alumn.codAlumno}" />
+                                            </p:column>
+                                            <p:column headerText="Nombre">
+                                                <h:outputText value="#{alumn.nombre}" />
+                                            </p:column>
+                                            <p:column headerText="Apellido">
+                                                <h:outputText value="#{alumn.apellido}" />
+                                            </p:column>
+                                            <p:column headerText="Direccion">
+                                                <h:outputText value="#{alumn.direccion}" />
+                                            </p:column>
+                                            <p:column headerText="Email">
+                                                <h:outputText value="#{alumn.email}" />
+                                            </p:column>
+                                            <p:column headerText="Tel Emergencia">
+                                                <h:outputText value="#{alumn.telEmergencia}" />
+                                            </p:column>
+                                            <p:column headerText="Fecha de Nacimiento">
+                                                <h:outputText value="#{alumn.fechanac}" />
+                                            </p:column>
+                                            <p:column headerText="Padecimientos">
+                                                <h:outputText value="#{alumn.padecimiento}" />
+                                            </p:column>
+                                            <p:column headerText="Acciones">
+                                                <p:commandLink title="Actualizar" actionListener="#{controllerAlumno.busquedaDatosAlumno(alumn)}" oncomplete="PF('dlgUpdateAlumn').show();" update=":acordion:updateAlumn">
+                                                    <img src="../resources/img/Cr.svg" id="img-2"/>
+                                                </p:commandLink> 
+                                                <p:commandLink title="Eliminar" actionListener="#{controllerAlumno.busquedaDatosAlumno(alumn)}" oncomplete="PF('dlgDeleteAlumn').show();" update=":acordion:deleteAlumn">
+                                                    <img src="../resources/img/DU.svg" id="img-2"/>
+                                                </p:commandLink>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
+                                </h:form>
+                                <!--Cuadros de Dialogo-->
+                                <p:dialog header="Actualizar Datos" id="updateAlumn" widgetVar="dlgUpdateAlumn" showEffect="explode" hideEffect="none" height="400" width="800">
+                                    <h:form>
+                                        <div class="ui-g">
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtCodigoU" value="Codigo:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel id="txtCodigoU" value="#{controllerAlumno.alum.codAlumno}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                &nbsp;
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtNombreU" value="Nombre:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtNombreU" value="#{controllerAlumno.alum.nombre}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtApellidoU" value="Apellido:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtApellidoU" value="#{controllerAlumno.alum.apellido}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtDireccionU" value="Direccion:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtDireccionU" value="#{controllerAlumno.alum.direccion}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtEmailU" value="Email:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtEmailU" value="#{controllerAlumno.alum.email}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtTelEmU" value="Telefono de Emergencia:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtTelEmU" value="#{controllerAlumno.alum.telEmergencia}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtFechanacU" value="Fecha de Nacimiento:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:calendar id="txtFechanacU" value="#{controllerAlumno.date}" pattern="yyyy/MM/dd" mask="true" class="w-1"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtPadU" value="Padecimientos:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtPadU" value="#{controllerAlumno.alum.padecimiento}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtStateU" value="Estado:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel id="txtStateU" value="#{controllerAlumno.alum.estado}"/>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <p:commandButton actionListener="#{controllerAlumno.actualizarDatosAlumno()}" value="Actualizar" update=":acordion:frmTablaAlumn:tblAlumn :acordion:growl" oncomplete="PF('dlgUpdateAlumn').hide();" class="ml-2"/>
+                                                <p:commandButton value="Cancelar" update=":acordion:frmTablaAlumn:tblAlumn" oncomplete="PF('dlgUpdateAlumn').hide();" class="ml-1"/>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </p:dialog>
+                                <p:dialog header="Eliminar Alumno" id="deleteAlumn" widgetVar="dlgDeleteAlumn" showEffect="explode" hideEffect="none" height="250" width="300">
+                                    <h:form>
+                                        <div class="ui-g">
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <h:outputText value="¿Esta seguro que desea Eliminarlo?"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel for="txtCodeE" value="Codigo:"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel id="txtCodeE" value="#{controllerAlumno.alum.codAlumno}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel for="txtNameE" value="Nombre:"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel id="txtNameE" value="#{controllerAlumno.alum.nombre}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel for="txtApellidoE" value="Apellido:"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel id="txtApellidoE" value="#{controllerAlumno.alum.apellido}"/>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <p:commandButton actionListener="#{controllerAlumno.cambioEstado()}" value="Eliminar" update=":acordion:frmTablaAlumn:tblAlumn :acordion:growl" oncomplete="PF('dlgDeleteAlumn').hide();" class="ml-1"/>
+                                                <p:commandButton value="Cancelar" update=":acordion:frmTablaAlumn:tblAlumn" oncomplete="PF('dlgDeleteAlumn').hide();" class="ml-1"/>
+                                            </div>
+                                        </div>
+
+                                    </h:form>
+                                </p:dialog>
+                            </div>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Ingresar Nuevo Alumno">
+                        <h:panelGrid>
+                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <p id="titulo-1">Ingrese los Datos</p>
+                                </div>
+                                <h:form id="frmIngAlumn">
+                                    <div class="ui-g m">
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtNombreA" value="Nombre:"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:inputText id="txtNombreA" value="#{controllerAlumno.alum.nombre}" class="w-1"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtApellidoA" value="Apellido:"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:inputText id="txtApellidoA" value="#{controllerAlumno.alum.apellido}" class="w-1"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtTelEm" value="Tel Emergencia: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:inputText id="txtTelEm" value="#{controllerAlumno.alum.telEmergencia}" class="w-1"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtFechanacA" value="Fecha de Nacimiento: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:calendar id="txtFechanacA" value="#{controllerAlumno.date}" pattern="yyyy/MM/dd" mask="true" class="w-1"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtCEncA" value="Cod. Encargado: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-3 ui-lg-3">
+                                            <p:inputText id="txtCEncA" value="#{controllerAlumno.alum.codEncargado}" class="w-1"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-1 ui-lg-1">
+                                            <p:commandButton value="Encargados" oncomplete="PF('dlgEnc').show();"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtCSecreA" value="Cod. Secretaria: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:inputText id="txtCSecreA" value="#{controllerAlumno.alum.codSecretaria}" class="w-1"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtPadA" value="Padecimientos: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:inputTextarea id="txtPadA" value="#{controllerAlumno.alum.padecimiento}" class="w-1"/>
+                                        </div>
+                                        <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                            &nbsp;
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtDireccionA" value="Direccion: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-10 ui-lg-10">
+                                            <p:inputText id="txtDireccionA" value="#{controllerAlumno.alum.direccion}" class="w-1"/> 
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtEmailA" value="Email: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-10 ui-lg-10">
+                                            <p:inputText id="txtEmailA" value="#{controllerAlumno.alum.email}" class="w-1"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="lstGrado" value="Grado: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:selectOneMenu id="lstGrado" value="#{controllerAlumno.grado.cod_grado}">
+                                                <f:selectItem itemLabel="Seleccionar Grado" itemValue="" noSelectionOption="true" />
+                                                <f:selectItems value="#{controllerAlumno.listaGrado}" var="migrado"  itemLabel="#{migrado.descripcion}" itemValue="#{migrado.cod_grado}" />
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="lstSeccion" value="Seccion: " class="etiquetas"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:selectOneMenu id="lstSeccion" value="#{controllerAlumno.sec.codigo}">
+                                                <f:selectItem itemLabel="Seleccionar Seccion" itemValue="" noSelectionOption="true" />
+                                                <f:selectItems value="#{controllerAlumno.listaSeccion}" var="misec"  itemLabel="#{misec.descripcion}" itemValue="#{misec.codigo}" />
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                            <p:commandButton actionListener="#{controllerAlumno.guardarAlumno()}" value="Guardar Datos" update=":acordion:frmTablaAlumn:tblAlumn :acordion:frmAsignar :acordion:growl" class="ml-1"/>
+                                        </div> 
+                                        <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </h:form>
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <p id="titulo-1">Asignar Alumno</p>
+                                </div>
+                                <h:form id="frmAsignar">
+                                    <div class="ui-g m">
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtAlumnCod" value="Codigo Alumno: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:outputLabel id="txtAlumnCod" value="#{controllerAlumno.alum.codAlumno}"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtAlumnN" value="Alumno: "/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:outputLabel id="txtAlumnN" value="#{controllerAlumno.alum.nombre}"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtCiclo" value="Ciclo: " />
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:outputLabel id="txtCiclo" value="2018"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                            <p:outputLabel for="txtCodAsign" value="Codigo Asignacion:" />
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                            <p:outputLabel id="txtCodAsign" value="#{controllerAlumno.asigna.codigo}"/>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                            <p:commandButton actionListener="#{controllerAlumno.saveAsign()}" value="Asignar Alumno" update=":acordion:growl"/>
+                                        </div>
+                                    </div>
+                                </h:form>
+                                <!--Cuadros de Dialogo-->
+                                <p:dialog header="Encargados" id="busqueda" widgetVar="dlgEnc" showEffect="none" hideEffect="none" height="600" width="1000">
+                                    <h:form id="frmTablaEnc">
+                                        <p:dataTable var="enc" value="#{controllerEnc.listaEnc}" widgetVar="EncB" id="tblEnc" reflow="true" filteredValue="#{controllerEnc.filtro}" scrollable="true" scrollHeight="450">
+                                            <f:facet name="header">
+                                                <p:outputPanel>
+                                                    <h:outputText value="Buscar:" />
+                                                    <p:inputText id="globalFilter" onkeyup="PF('EncB').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                                </p:outputPanel>
+                                            </f:facet>
+                                            <p:column headerText="Codigo" filterMatchMode="contains" filterBy="#{enc.codEnc}">
+                                                <h:outputText value="#{enc.codEnc}" />
+                                            </p:column>
+                                            <p:column headerText="Nombre"  filterMatchMode="contains" filterBy="#{enc.nombre}">
+                                                <h:outputText value="#{enc.nombre}" />
+                                            </p:column>
+                                            <p:column headerText="Apellido" filterMatchMode="contains" filterBy="#{enc.apellido}">
+                                                <h:outputText value="#{enc.apellido}" />
+                                            </p:column>
+                                            <p:column headerText="Direccion" filterMatchMode="contains" filterBy="#{enc.direccion}">
+                                                <h:outputText value="#{enc.direccion}" />
+                                            </p:column>
+                                            <p:column headerText="Email" filterMatchMode="contains" filterBy="#{enc.email}">
+                                                <h:outputText value="#{enc.email}" />
+                                            </p:column>
+                                            <p:column headerText="Tel Casa" filterMatchMode="contains" filterBy="#{enc.telCasa}">
+                                                <h:outputText value="#{enc.telCasa}" />
+                                            </p:column>
+                                            <p:column headerText="Tel Movil" filterMatchMode="contains" filterBy="#{enc.telMovil}">
+                                                <h:outputText value="#{enc.telMovil}" />
+                                            </p:column>
+                                            <p:column headerText="Fecha de Nacimiento" filterMatchMode="contains" filterBy="#{enc.fechanac}">
+                                                <h:outputText value="#{enc.fechanac}" />
+                                            </p:column>
+                                            <p:column headerText="Acciones">
+                                                <p:commandLink title="Actualizar" actionListener="#{controllerEnc.searchEnc(enc)}" oncomplete="PF('dlgUpdateEnc').show();" update=":acordion:updateEnc">
+                                                    <img src="../resources/img/Cr.svg" id="img-2"/>
+                                                </p:commandLink> 
+                                                <p:commandLink title="Eliminar" actionListener="#{controllerEnc.searchEnc(enc)}" oncomplete="PF('dlgDeleteEnc').show();" update=":acordion:deleteEnc">
+                                                    <img src="../resources/img/DU.svg" id="img-2"/>
+                                                </p:commandLink>
+                                                <p:commandLink title="Asignar Encargado" actionListener="#{controllerAlumno.alum.setCodEncargado(enc.codEnc)}" oncomplete="PF('dlgEnc').hide();" update=":acordion:frmIngAlumn:txtCEncA">
+                                                    <img src="../resources/img/asign.svg" id="img-2"/>
+                                                </p:commandLink>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p:commandButton value="Ingresar Encargado" oncomplete="PF('dlgCreateEnc').show();"/>
+                                        </div>
+                                    </h:form>
+                                </p:dialog>
+                                <p:dialog header="Ingrese los Datos del Encargado" id="CreateEnc" widgetVar="dlgCreateEnc" showEffect="explode" hideEffect="none" height="400" width="800">
+                                    <h:form>
+                                        <div class="ui-g">
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtNombreEn" value="Nombre:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtNombreEn" value="#{controllerEnc.enc.nombre}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtApellidoEn" value="Apellido:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtApellidoEn" value="#{controllerEnc.enc.apellido}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtDireccionEn" value="Direccion:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtDireccionEn" value="#{controllerEnc.enc.direccion}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtEmailEn" value="Email:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtEmailEn" value="#{controllerEnc.enc.email}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtTelCEn" value="Telefono de Casa:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtTelCEn" value="#{controllerEnc.enc.telCasa}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtTelMEn" value="Telefono Movil:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtTelMEn" value="#{controllerEnc.enc.telMovil}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtFechanacEn" value="Fecha de Nacimiento:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:calendar id="txtFechanacEn" value="#{controllerEnc.date}" pattern="yyyy/MM/dd" mask="true" class="w-1"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtCuiEn" value="Cui:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtCuiEn" value="#{controllerEnc.enc.cui}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtCsecre" value="Cod Secretaria:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtCsecre" value="#{controllerEnc.sec.codigo}"/>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <p:commandButton actionListener="#{controllerEnc.guardarEnc()}" value="Guardar" oncomplete="PF('dlgCreateEnc').hide();" update=":acordion:frmTablaEnc:tblEnc :acordion:growl"/>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </p:dialog>
+                                <p:dialog header="Actualizar Datos" id="updateEnc" widgetVar="dlgUpdateEnc" showEffect="explode" hideEffect="none" height="400" width="800">
+                                    <h:form>
+                                        <div class="ui-g">
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtCodigoU" value="Codigo:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel id="txtCodigoU" value="#{controllerEnc.enc.codEnc}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                &nbsp;
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtNombreU" value="Nombre:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtNombreU" value="#{controllerEnc.enc.nombre}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtApellidoU" value="Apellido:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtApellidoU" value="#{controllerEnc.enc.apellido}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtDireccionU" value="Direccion:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtDireccionU" value="#{controllerEnc.enc.direccion}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtEmailU" value="Email:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtEmailU" value="#{controllerEnc.enc.email}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtTelEmU" value="Telefono de Casa:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtTelEmU" value="#{controllerEnc.enc.telCasa}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtTelMU" value="Telefono Movil:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtTelMU" value="#{controllerEnc.enc.telMovil}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtFechanacU" value="Fecha de Nacimiento:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:calendar id="txtFechanacU" value="#{controllerEnc.date}" pattern="yyyy/MM/dd" mask="true" class="w-1"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtStateX" value="Estado:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel id="txtStateX" value="#{controllerEnc.enc.estado}"/>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <p:commandButton actionListener="#{controllerEnc.updEnc()}" value="Actualizar" update=":acordion:frmTablaEnc:tblEnc :acordion:growl" oncomplete="PF('dlgUpdateEnc').hide();" class="ml-2"/>
+                                                <p:commandButton value="Cancelar" update=":acordion:frmTablaEnc:tblEnc" oncomplete="PF('dlgUpdateEnc').hide();" class="ml-1"/>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </p:dialog>
+                                <p:dialog header="Eliminar Alumno" id="deleteEnc" widgetVar="dlgDeleteEnc" showEffect="explode" hideEffect="none" height="400" width="500">
+                                    <h:form>
+                                        <h:outputText value="¿Esta seguro que desea Eliminarlo?"/>
+                                        <br/><br/>
+                                        <p:outputLabel for="txtCodeD" value="Codigo:"/>
+                                        <p:outputLabel id="txtCodeD" value="#{controllerEnc.enc.codEnc}"/>
+                                        <br/>
+                                        <p:outputLabel for="txtNameD" value="Nombre:"/>
+                                        <p:outputLabel id="txtNameD" value="#{controllerEnc.enc.nombre}"/>
+                                        <br/>
+                                        <p:outputLabel for="txtApellidoD" value="Apellido:"/>
+                                        <p:outputLabel id="txtApellidoD" value="#{controllerEnc.enc.apellido}"/>
+                                        <br/>
+                                        <p:commandButton actionListener="#{controllerAlumno.cambioEstado()}" value="Eliminar" update=":acordion:frmTablaEnc:tblEnc :acordion:growl" oncomplete="PF('dlgDeleteEnc').hide();"/>
+                                        <p:commandButton value="Cancelar" update=":acordion:frmTablaEnc:tblEnc" oncomplete="PF('dlgDeleteEnc').hide();"/>
+                                    </h:form>
+                                </p:dialog>
+                            </div>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

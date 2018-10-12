@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <body>
+
+        <ui:composition template="./fAdmin.xhtml">
+
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{controladorMaestro.cargarMaestro()}"/>
+                <p id="titulo">Usuario: Profesor(a)</p>
+                <p:accordionPanel id="acordion" class="mt-1">
+                    <p:tab title="Profesores">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                <h:form id="frmTabla">
+                                    <div class="ui-g m-1">
+                                        <p:dataTable var="Maestro" value="#{controladorMaestro.mostrarMaestro}" id="tblMaestros" scrollable="true" scrollHeight="300">
+                                            <p:column headerText="Codigo">
+                                                <h:outputText value="#{Maestro.codigo}" />
+                                            </p:column>
+                                            <p:column headerText="Nombre">
+                                                <h:outputText value="#{Maestro.nombre}" />
+                                            </p:column>
+                                            <p:column headerText="Apellido">
+                                                <h:outputText value="#{Maestro.apellido}" />
+                                            </p:column>
+                                            <p:column headerText="Direccion">
+                                                <h:outputText value="#{Maestro.direccion}" />
+                                            </p:column>
+                                            <p:column headerText="Email">
+                                                <h:outputText value="#{Maestro.email}" />
+                                            </p:column>
+                                            <p:column headerText="Tel casa">
+                                                <h:outputText value="#{Maestro.telCasa}" />
+                                            </p:column>
+                                            <p:column headerText="Tel movil">
+                                                <h:outputText value="#{Maestro.telMovil}" />
+                                            </p:column>
+                                            <p:column headerText="Fecha de Nacimiento">
+                                                <h:outputText value="#{Maestro.fechanac}" />
+                                            </p:column>
+                                            <p:column headerText="Acciones">
+                                                <p:commandLink title="Actualizar" actionListener="#{controladorMaestro.busquedaDatosMaestro(Maestro)}" oncomplete="PF('dlgUpdate').show();" update=":acordion:update">
+                                                    <img src="../resources/img/Cr.svg" id="img-2"/>
+                                                </p:commandLink> 
+                                                <p:commandLink title="Eliminar" actionListener="#{controladorMaestro.busquedaDatosMaestro(Maestro)}" oncomplete="PF('dlgDelete').show();" update=":acordion:delete">
+                                                    <img src="../resources/img/DU.svg" id="img-2"/>
+                                                </p:commandLink>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p:commandButton value="Ingresar Nuevo Profesor(a)" oncomplete="PF('dlgCreateM').show();"/>
+                                        </div>
+                                    </div>
+                                </h:form>
+                                <!--Cuadros de Dialogo-->
+                                <p:dialog header="Ingresar Maestro" id="createM" widgetVar="dlgCreateM" showEffect="explode" hideEffect="none" height="500" width="800">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                            <p id="titulo-1">Ingrese los Datos</p>
+                                        </div>
+                                        <h:form id="frmIngreso">
+                                            <div class="ui-g m">
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtCodigo" value="Codigo:"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtCodigo" value="#{controladorMaestro.maes.codigo}" class="w-1"/> 
+                                                </div>
+                                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtNombre" value="Nombre:"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtNombre" value="#{controladorMaestro.maes.nombre}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtApellido" value="Apellido:"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtApellido" value="#{controladorMaestro.maes.apellido}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtTelcasa" value="Tel Casa: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtTelcasa" value="#{controladorMaestro.maes.telCasa}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtTelmovil" value="Tel Movil: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtTelmovil" value="#{controladorMaestro.maes.telMovil}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtFechanac" value="Fecha de Nacimiento: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:calendar id="txtFechanac" value="#{controladorMaestro.date}" pattern="yyyy/MM/dd" mask="true" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtCui" value="Cui: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtCui" value="#{controladorMaestro.maes.cui}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtCodigoA" value="Codigo Administrador: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText id="txtCodigoA" value="#{controladorMaestro.maes.codigoA}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtDireccion" value="Direccion: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-10 ui-lg-10">
+                                                    <p:inputText id="txtDireccion" value="#{controladorMaestro.maes.direccion}" class="w-1"/> 
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtEmail" value="Email: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-10 ui-lg-10">
+                                                    <p:inputText id="txtEmail" value="#{controladorMaestro.maes.email}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
+                                                    <p:outputLabel for="txtPass" value="Pasword: "/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                                                    <p:inputText type="password" id="txtPass" value="#{controladorMaestro.maes.pass}" class="w-1"/>
+                                                </div>
+                                                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                                    <p:commandButton actionListener="#{controladorMaestro.guardarMaestro()}" value="Guardar Datos" update=":acordion:frmTabla:tblMaestros :acordion:growl" oncomplete="PF('dlgCreateM').hide();" class="ml-1"/>
+                                                    <p:commandButton value="Cancelar" update=":acordion:frmTabla:tblMaestros" oncomplete="PF('dlgCreateM').hide();" class="ml-1"/>
+                                                </div> 
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </p:dialog>
+                                <p:dialog header="Actualizar Datos" id="update" widgetVar="dlgUpdate" showEffect="explode" hideEffect="none" height="400" width="800">
+                                    <h:form>
+                                        <div class="ui-g">
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtCodigoB" value="Codigo:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel id="txtCodigoB" value="#{controladorMaestro.maes.codigo}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                &nbsp;
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtNombreB" value="Nombre:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtNombreB" value="#{controladorMaestro.maes.nombre}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtApellidoB" value="Apellido:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtApellidoB" value="#{controladorMaestro.maes.apellido}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtDireccionB" value="Direccion:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtDireccionB" value="#{controladorMaestro.maes.direccion}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtEmailB" value="Email:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtEmailB" value="#{controladorMaestro.maes.email}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtTelCasaB" value="Telefono de Casa:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtTelCasaB" value="#{controladorMaestro.maes.telCasa}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtTelMovilB" value="Telefono Movil:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtTelMovilB" value="#{controladorMaestro.maes.telMovil}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtFechanacB" value="Fecha de Nacimiento:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:calendar id="txtFechanacB" value="#{controladorMaestro.date}" pattern="yyyy/MM/dd" mask="true" class="w-1"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtCuiB" value="Cui:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText id="txtCuiB" value="#{controladorMaestro.maes.cui}"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:outputLabel for="txtPasswordB" value="Password:"/>
+                                            </div>
+                                            <div class="ui-g-3 ui-md-3 ui-lg-3">
+                                                <p:inputText type="password" id="txtPasswordB" value="#{controladorMaestro.maes.pass}"/>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <p:commandButton actionListener="#{controladorMaestro.actualizarMaestro()}" value="Actualizar" update=":acordion:frmTabla:tblMaestros :acordion:growl" oncomplete="PF('dlgUpdate').hide();" class="ml-2"/>
+                                                <p:commandButton value="Cancelar" update=":acordion:frmTabla:tblMaestros" oncomplete="PF('dlgUpdate').hide();" class="ml-1"/>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </p:dialog>
+                                <p:dialog header="Eliminar Maestro" id="delete" widgetVar="dlgDelete" showEffect="explode" hideEffect="none" height="250" width="300">
+                                    <h:form>
+                                        <div class="ui-g">
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <h:outputText value="¿Esta seguro que desea Eliminarlo?"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel for="txtCodeE" value="Codigo:"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel id="txtCodeE" value="#{controladorMaestro.maes.codigo}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel for="txtNameE" value="Nombre:"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel id="txtNameE" value="#{controladorMaestro.maes.nombre}"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel for="txtApellidoE" value="Apellido:"/>
+                                            </div>
+                                            <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                <p:outputLabel id="txtApellidoE" value="#{controladorMaestro.maes.apellido}"/>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                                <p:commandButton actionListener="#{controladorMaestro.elEstado()}" value="Eliminar" update=":acordion:frmTabla:tblMaestros :acordion:growl" oncomplete="PF('dlgDelete').hide();" class="ml-1"/>
+                                                <p:commandButton value="Cancelar" update=":acordion:frmTabla:tblMaestros" oncomplete="PF('dlgDelete').hide();" class="ml-1"/>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </p:dialog>
+                            </div>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
