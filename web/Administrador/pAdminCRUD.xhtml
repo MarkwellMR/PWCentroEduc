@@ -72,7 +72,7 @@
                                                     <p:outputLabel for="txtCode" value="Codigo:"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-4 ui-lg-4">
-                                                    <p:inputText id="txtCode" value="#{controllerAdmin.admin.codigo}" class="w-1"/>
+                                                    <p:inputText id="txtCode" value="#{controllerAdmin.admin.codigo}" class="w-1" maxlength="5"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-6 ui-lg-6">
                                                     &nbsp;
@@ -81,25 +81,25 @@
                                                     <p:outputLabel for="txtName" value="Nombre:"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-4 ui-lg-4">
-                                                    <p:inputText id="txtName" value="#{controllerAdmin.admin.nombre}" class="w-1"/>
+                                                    <p:inputText id="txtName" value="#{controllerAdmin.admin.nombre}" class="w-1" maxlength="30"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
                                                     <p:outputLabel for="txtApellido" value="Apellido:" class="etiquetas"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-4 ui-lg-4">
-                                                    <p:inputText id="txtApellido" value="#{controllerAdmin.admin.apellido}" class="w-1"/>
+                                                    <p:inputText id="txtApellido" value="#{controllerAdmin.admin.apellido}" class="w-1" maxlength="30"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
                                                     <p:outputLabel for="txtTH" value="Telefono de Casa:"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-4 ui-lg-4">
-                                                    <p:inputText id="txtTH" value="#{controllerAdmin.admin.telCasa}" class="w-1"/>
+                                                    <p:inputText id="txtTH" value="#{controllerAdmin.admin.telCasa}" class="w-1" maxlength="8"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
                                                     <p:outputLabel for="txtTM" value="Telefono Movil:" class="etiquetas"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-4 ui-lg-4">
-                                                    <p:inputText id="txtTM" value="#{controllerAdmin.admin.telMovil}" class="w-1"/>
+                                                    <p:inputText id="txtTM" value="#{controllerAdmin.admin.telMovil}" class="w-1" maxlength="8"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
                                                     <p:outputLabel for="txtDate" value="Fecha de Nacimiento:"/>
@@ -111,13 +111,13 @@
                                                     <p:outputLabel for="txtCUI" value="CUI:"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-4 ui-lg-4">
-                                                    <p:inputText id="txtCUI" value="#{controllerAdmin.admin.cui}" class="w-1 "/>
+                                                    <p:inputText id="txtCUI" value="#{controllerAdmin.admin.cui}" class="w-1 " maxlength="13"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
                                                     <p:outputLabel for="txtDir" value="Dirección:" />
                                                 </div>
                                                 <div class="ui-g-12 ui-md-10 ui-lg-10">
-                                                    <p:inputText id="txtDir" value="#{controllerAdmin.admin.direccion}" class="w-1"/>
+                                                    <p:inputText id="txtDir" value="#{controllerAdmin.admin.direccion}" class="w-1" maxlength="60"/>
                                                 </div>
                                                 <div class="ui-g-12 ui-md-2 ui-lg-2" id="etiquetas">
                                                     <p:outputLabel for="txtEmail" value="Email:" />

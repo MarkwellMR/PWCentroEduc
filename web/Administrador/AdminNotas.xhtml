@@ -65,7 +65,7 @@
                                         </p:column>
                                         <p:column headerText="Nota">
                                             <h:inputText value="#{controllerNotas.nota.nota}"/>
-                                            <p:commandButton value="Agregar Nota"  actionListener="#{controllerNotas.mostrarCodAlum(lstAlum.codAlumno,controllerNotas.nota.nota ,controllerNotas.codUnidad)}" />
+                                            <p:commandButton value="Agregar Nota"  actionListener="#{controllerNotas.mostrarCodAlum(lstAlum.codAlumno,controllerNotas.nota.nota ,controllerNotas.codUnidad)}" update=":acordion:growl"/>
                                         </p:column>
                                     </p:dataTable> 
                                 </div>

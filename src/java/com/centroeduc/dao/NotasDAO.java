@@ -35,8 +35,8 @@ public class NotasDAO extends Conexion {
             answer = "Dato Almacenado Correctamente";
             run.close();
         } catch (SQLException e) {
-            answer = "Error en el DAO: " + e;
-            System.out.println("Error " + e);
+            answer = "Error en el DAO";
+            System.out.println("Error en el DAO: " + e);
         } finally {
             this.cerrarConex();
         }

@@ -10,8 +10,10 @@ import com.centroeduc.model.Notas;
 import com.centroeduc.model.Seccion;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
@@ -31,6 +33,8 @@ public class ControllerNotas implements Serializable{
     private int codCurso;
     private int codAlum;
     private Integer codUnidad;
+    String mensaje = null;
+
     
     
     MaestroDAO maesdao = new MaestroDAO();
@@ -204,15 +208,19 @@ public class ControllerNotas implements Serializable{
     }
     
     public void mostrarCodAlum(int cda, int nta, int und){
+        FacesContext context = FacesContext.getCurrentInstance();
+        mensaje = null;
         int rs = notasdao.AgregarNotas(codMae, codGrad, codSec, codCurso, cda);
-        String ResultadoNotas;
+        String ResultadoNotas = null;
         try {
             
             System.out.println("rs " + rs);
             ResultadoNotas = notasdao.agregarNotas(rs,nta, und);
-            
+            mensaje = ResultadoNotas;
+            context.addMessage(null, new FacesMessage(mensaje));
         } catch (Exception e) {
-            System.out.println("error xD");
+            context.addMessage(null, new FacesMessage(mensaje));
+            System.out.println("Error al guardar Notas: " + e);
         }
         
         

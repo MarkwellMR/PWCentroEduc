@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+
 @ManagedBean
 @ViewScoped
 @SessionScoped
@@ -57,6 +58,7 @@ public class ControllerAdmin {
         try {
             mensaje = dao.registerAdmin(admin, date);
             context.addMessage(null, new FacesMessage(mensaje));
+            clearFields();
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(mensaje));
             System.out.println("Error ControllerAdmin(save): " + e);
@@ -105,6 +107,10 @@ public class ControllerAdmin {
         } catch (IOException e) {
             System.out.println("Error en Controller(Auntenticar): " + e);
         }
+    }
+    
+    public void clearFields(){
+        this.admin = null;
     }
 
 }

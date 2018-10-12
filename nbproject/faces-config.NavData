@@ -4,18 +4,18 @@
     <Scope Scope="Project">
         <Node id="Secretaria/AdminNotas.xhtml" x="650" y="450" zoom="true"/>
         <Node id="Profesor/pAdminCRUD.xhtml" x="1263" y="436" zoom="true"/>
-        <Node id="Administrador/AdminNotas.xhtml" x="598" y="241" zoom="true"/>
         <Node id="index.xhtml" x="1041" y="420" zoom="true"/>
+        <Node id="Administrador/AdminNotas.xhtml" x="598" y="241" zoom="true"/>
         <Node id="Profesor/AdminNotas.xhtml" x="150" y="600" zoom="true"/>
         <Node id="Profesor/adminP2.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="Secretaria/adminP2.xhtml" x="900" y="300" zoom="true"/>
         <Node id="Administrador/*" x="22" y="222" zoom="true"/>
-        <Node id="Administrador/adminP2.xhtml" x="658" y="50" zoom="true"/>
         <Node id="Secretaria/pAdminCRUD.xhtml" x="743" y="382" zoom="true"/>
+        <Node id="Administrador/adminP2.xhtml" x="658" y="50" zoom="true"/>
         <Node id="Secretaria/adminP3.xhtml" x="400" y="600" zoom="true"/>
         <Node id="Profesor/adminP3.xhtml" x="400" y="300" zoom="true"/>
-        <Node id="Administrador/fAdmin.xhtml" x="51" y="66" zoom="true"/>
         <Node id="Profesor/fAdmin.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="Administrador/fAdmin.xhtml" x="51" y="66" zoom="true"/>
         <Node id="Administrador/adminP3.xhtml" x="438" y="165" zoom="true"/>
         <Node id="Administrador/pAdminCRUD.xhtml" x="264" y="60" zoom="true"/>
         <Node id="Secretaria/fAdmin.xhtml" x="650" y="300" zoom="true"/>

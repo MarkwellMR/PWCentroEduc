@@ -6,23 +6,23 @@
     <navigation-rule>
         <from-view-id>Administrador/*</from-view-id>
         <navigation-case>
-            <from-outcome>case1</from-outcome>
-            <to-view-id>/Administrador/fAdmin.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>case2</from-outcome>
-            <to-view-id>/Administrador/pAdminCRUD.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>case3</from-outcome>
+            <from-outcome>caso3</from-outcome>
             <to-view-id>/Administrador/adminP2.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>case4</from-outcome>
+            <from-outcome>caso4</from-outcome>
             <to-view-id>/Administrador/adminP3.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>case5</from-outcome>
+            <from-outcome>caso1</from-outcome>
+            <to-view-id>/Administrador/fAdmin.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Padmin</from-outcome>
+            <to-view-id>/Administrador/pAdminCRUD.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>caso5</from-outcome>
             <to-view-id>/Administrador/AdminNotas.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
